@@ -1,0 +1,64 @@
+branch:
+  trunk_name: master
+  branch_type_B:
+    personal_feature:
+      pattern: feature/${userID}_${storyID}
+    bugfix:
+      pattern: bugfix/${userID}_${bugID}
+    tag:
+      pattern: v${versionnumber}[${releasetype}[_${description}]{_yyyyMMddHHmm}]
+      versionnumber: versionnumber={Major-version}.{Feature-version}.{Fix-version}.{BuildNo}
+    # 测试分支
+    test:
+      pattern: test
+    # 大项目开发分支（一般不会有，项目初期大功能重构才会有）
+    share_features:
+      pattern: dev/${storyName}
+artifact:
+  - path: /
+    artifact_name: anarkh-cli
+    artifact_type: node
+    repository_url: https://github.com/anarkh/cli.git
+    dependence_conf: package.json
+source:
+  test_source:
+    filepath_regex: ['/^test/.*\.spec\.js']
+  third_party_source:
+    filepath_regex: ['/node_modules/.*']
+code_review:
+  restrict_labels: [
+    'CR-编程规范',
+    'CR-业务逻辑',
+    'CR-边界逻辑',
+    'CR-代码架构',
+    'CR-性能影响',
+    'CR-安全性',
+    'CR-可测试性',
+    'CR-可读性',
+    'CR-文档',
+    'CR-工程构建'
+  ]
+  reviewers: ['anarkh'] #CR评审人
+file:
+  # 至少要两个owner
+  - path: /.*.json
+    owners: ['anarkh', 'lichenyang']
+    owner_rule: 1
+log-helper:
+  debug: false
+  # 启用自动纠正，默认开启，关闭时只做提示
+  auto-correct: false
+  # 启用angular规范纠正，默认不启用
+  correct-angular: false
+  # 启用tapd规范纠正，默认启用
+  correct-tapd: true
+hookman:
+  close-features:
+    - angular-commit-check
+code-style:
+  debug: false
+  patch-mode: true
+  js:
+    code-style-file: ".eslintrc.js"
+    exclusion-path:
+      - build
