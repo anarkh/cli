@@ -1,8 +1,8 @@
 {
-  "name": "anarkh-cli",
+  "name": "@anarkh/cli",
   "version": "1.0.0",
   "description": "anarkh cli",
-  "main": "index.js",
+  "main": "./bin/anarkh.js",
   "bin": {
     "anarkh-cli": "./bin/anarkh.js"
   },
